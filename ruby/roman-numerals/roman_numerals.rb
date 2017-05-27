@@ -1,46 +1,37 @@
 module RomanNumerals
-  # ROMAN_NUMERALS_MAPPING = 
-  #   1 => 'I',
-  #   5 => 'V',
-  #   10 => 'X',
-  #   50 => 'L',
-  #   100 => 'C',
-  #   500 => 'D',
-  #   1000 => 'M'
-  # }
-
-  ROMAN_NUMERALS_MAPPING = {
-    1 => { 'symbol' => 'I' },
-    5 => { 'symbol' => 'V', 'diff_factor' => 1 },
-    10 => { 'symbol' => 'X', 'diff_factor' => 1 },
-    50 => { 'symbol' => 'L', 'diff_factor' => 10 },
-    100 => { 'symbol' => 'C', 'diff_factor' => 10 },
-    500 => { 'symbol' => 'D', 'diff_factor' => 10 },
-    1000 => { 'symbol' => 'M', 'diff_factor' => 100 }
+  MAPPINGS = {
+    1 => 'I',
+    4 => 'IV',
+    5 => 'V', 
+    9 => 'IX',
+    10 => 'X', 
+    40 => 'XL',
+    50 => 'L', 
+    90 => 'XC',
+    100 => 'C',
+    400 => 'CD',
+    500 => 'D',
+    900 => 'CM',
+    1000 => 'M'
   }
 
   def to_roman
-    num = self
-    roman_numeral = ''
-    require 'pry'; binding.pry
+    convert self
+  end
 
+  private
 
-    ROMAN_NUMERALS_MAPPING.keys.reverse.map do |k|
-      # mod = k % num
-      # roman_numeral << ROMAN_NUMERALS_MAPPING[k] * mod
-      # num -= mod
+  def convert(value)
+    closest_lowest_key = MAPPINGS.keys.reverse.find { |e| e <= value }
 
-      # # q, m = (k - self).divmod(k)
-      # # roman_numeral << ROMAN_NUMERALS_MAPPING[k] * q.abs
-      # # quotient, modulus = k.divmod(num)
-      # roman_numeral << ROMAN_NUMERALS_MAPPING[k] * modulus
-      # num -= modulus
-      # # num -= (modulus + quotient)
+    if value == closest_lowest_key
+      return MAPPINGS[value]
     end
 
-    roman_numeral
+    MAPPINGS[closest_lowest_key] + convert(value - closest_lowest_key)
   end
 end
 
 class Fixnum; include RomanNumerals; end
 
+module BookKeeping; VERSION = 2; end
