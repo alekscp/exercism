@@ -24,9 +24,7 @@ module RomanNumerals
   def convert(value)
     closest_lowest_key = MAPPINGS.keys.reverse.find { |e| e <= value }
 
-    if value == closest_lowest_key
-      return MAPPINGS[value]
-    end
+    return MAPPINGS[value] if value == closest_lowest_key
 
     MAPPINGS[closest_lowest_key] + convert(value - closest_lowest_key)
   end
