@@ -67,3 +67,13 @@ class SieveTest < Minitest::Test
     assert_equal 1, BookKeeping::VERSION
   end
 end
+
+require 'minitest/benchmark'
+ describe "Sieve Benchmark" do
+   def self.bench_range
+     [1, 10, 100, 1000, 10000, 100000, 1000000]
+   end
+   bench_performance_linear "primes", 0.99 do |input|
+       Sieve.new(input).primes
+   end
+ end
