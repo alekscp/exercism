@@ -13,6 +13,8 @@ class Sieve
     prime_numbers_remaining
   end
 
+  private
+
   def integers
     @integers ||= (SMALLEST_PRIME..@nb).map { true }
   end
