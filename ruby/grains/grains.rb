@@ -9,13 +9,10 @@ class Grains
     new(SQUARES).total
   end
 
-  def self.print_board
-    new(SQUARES).print_board
-  end
-
   def initialize(nb)
     raise ArgumentError if [0, -1].include?(nb) || nb > 64
     @nb = nb
+    @board = Hash[(1..nb).map { |e| [e, e] }]
     populate_board
   end
 
@@ -27,17 +24,9 @@ class Grains
     board.values.inject(:+)
   end
 
-  def print_board
-    board
-  end
-
   private
 
-  attr_reader :nb
-
-  def board
-    @board ||= Hash[(1..nb).map { |e| [e, e] }]
-  end
+  attr_reader :nb, :board
 
   def populate_board
     board.keys.drop(2).map { |square| board[square] = board[square - 1] * 2 }
