@@ -7,11 +7,11 @@ module Bob
   }
 
   def self.hey(remark)
-    if (remark.gsub(/[^A-Za-z]/, '').scan(/[A-Z]/).count == remark.gsub(/[^A-Za-z]/, '').length) && !remark.gsub(/[^A-Za-z]/, '').empty?
+    if remark.scan(/[A-Z]/).count > remark.scan(/[a-z]/).count
       ANSWERS['yell']
-    elsif remark.gsub(/[\n\s]/, '').match(/[\.\!\w]$/)
+    elsif remark.scan(/[^\n\s\t]/).last =~ /[\.\!\w]$/
       ANSWERS['anything_else']
-    elsif remark.gsub(/[\n\s]/, '').match(/\?$/)
+    elsif remark.scan(/[^\n\s\t]/).last =~ /\?$/
       ANSWERS['question']
     else
       ANSWERS['without_saying_anything']
