@@ -5,7 +5,7 @@ class SumOfMultiples
 
   def to(limit)
     (1...limit).inject(0) do |sum, n|
-      sum += n if factors.map { |mul| n % mul == 0 }.any?
+      sum += n if factors.any? { |mul| n % mul == 0 }
       sum
     end
   end
