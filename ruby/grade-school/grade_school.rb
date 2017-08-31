@@ -27,7 +27,7 @@ class School
   private
 
   def grades
-    students_storage.map { |student| student.grade }.uniq
+    @_grades ||= students_storage.map { |student| student.grade }.uniq
   end
 end
 
