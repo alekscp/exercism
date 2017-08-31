@@ -1,18 +1,18 @@
 require 'ostruct'
 
 class School
-  attr_accessor :students_storage
+  attr_accessor :students_array
 
   def initialize
-    @students_storage = []
+    @students_array = []
   end
 
   def students(grade)
-    students_storage.select { |student| student.grade == grade }.map(&:name).sort
+    students_array.select { |student| student.grade == grade }.map(&:name).sort
   end
 
   def add(name, grade)
-    students_storage << OpenStruct.new(name: name, grade: grade)
+    students_array << OpenStruct.new(name: name, grade: grade)
   end
 
   def students_by_grade
@@ -27,7 +27,7 @@ class School
   private
 
   def grades
-    @_grades ||= students_storage.map { |student| student.grade }.uniq
+    @_grades ||= students_array.map { |student| student.grade }.uniq
   end
 end
 
