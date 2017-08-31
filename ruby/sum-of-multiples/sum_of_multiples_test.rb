@@ -14,7 +14,7 @@ class SumOfMultiplesTest < Minitest::Test
   end
 
   def test_multiples_of_3_or_5_up_to_10
-    # skip
+    # # skip
     assert_equal 23, SumOfMultiples.new(3, 5).to(10)
   end
 
