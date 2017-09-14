@@ -1,8 +1,8 @@
 module PhoneNumber
   NANP_REGEX = %r{
     ^(?<country>[1]{0,1})
-    (?<area>[2-9]{3})
-    (?<prefix>[2-9]{3})
+    (?<area>[2-9]\d{2})
+    (?<prefix>[2-9]\d{2})
     (?<line>\d{4})$
   }x
 
