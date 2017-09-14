@@ -1,15 +1,23 @@
 module PhoneNumber
-  PHONE_NUMBER_REGEX = Regexp.new('(\d{0,1})(\d{3})(\d{3})(\d{4})$')
+  NANP_REGEX = %r{
+    ^(?<country>[1]{0,1})
+    (?<area>[2-9]{3})
+    (?<prefix>[2-9]{3})
+    (?<line>\d{4})$
+  }x
 
-  def self.clean(number)
-    number.gsub!(/[^\d]/, '')
-    country_code, area_code, prefix, line_number = (number.match(PHONE_NUMBER_REGEX) || [])[1..-1]
+  class << self
+    def clean(number)
+      numbering = number.gsub(/[^\d]/, '').match(NANP_REGEX)
+      render_phone_number(numbering)
+    end
 
-    return unless ['', '1'].include?(country_code)
-    return if area_code[0] == '1'
-    return unless prefix[/^[2-9]/]
+    private
 
-    area_code + prefix + line_number
+    def render_phone_number(numbering)
+      return unless numbering
+      numbering[:area] + numbering[:prefix] + numbering[:line]
+    end
   end
 end
 
